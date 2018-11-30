@@ -1,1 +1,1 @@
-This is the repository for the first Ruby on Rails - Course
+This is the repository for the first Ruby on Rails - Course!
