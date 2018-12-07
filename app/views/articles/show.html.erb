@@ -1,5 +1,18 @@
 <h2 class="center">Title: <%= @article.title %></h2>
-<div class="whell col-xs-8 col-xs-offset-2">
+<div class="well col-xs-8 col-xs-offset-2">
+  <% if @article.user %>
+    <div class="row center">
+      <div class="col-md-4 col-md-offset-4">
+        <ul class="listing">
+          <li>Created by:</li>
+          <li><%= link_to gravator_for(@article.user), user_path(@article.user) %></li>
+          <div class="article-title">
+            <li><%= link_to @article.user.username, user_path(@article.user) %></li>
+          </div>
+        </ul>
+      </div>
+    </div>
+  <% end %>
   <h4 class="center description"><strong>Description:</strong></h4> 
   <%= simple_format(@article.description) %>
   <hr>
