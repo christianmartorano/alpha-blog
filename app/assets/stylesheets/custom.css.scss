@@ -17,6 +17,7 @@ $navbar-default-bg: #192B0B;
   text-decoration: none;
 }
 
+
 .center {
   text-align: center;
 }
@@ -71,6 +72,11 @@ $navbar-default-bg: #192B0B;
 .listing {
   list-style: none;
   padding-left: 0;
+}
+
+.inset {
+  padding: 3px;
+  border: none;
 }
 
 footer {
