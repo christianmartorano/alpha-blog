@@ -49,7 +49,7 @@ class UsersController < ApplicationController
       @user = User.find(params[:id])
     end
     def require_same_user
-      if @user != current_user
+      if @user != current_user && !current_user.admin?
         flash[:danger] = "You only have permission to update or edit your account"
         redirect_to root_path
       end

@@ -22,8 +22,8 @@
   </div>
   <div class="articles-actions">
     <%= link_to "View all articles", articles_path, class: "btn btn-xs btn-primary" %>
-    <% if logged_in? && current_user == @article.user %>
-      <%= link_to "Delete the article", edit_article_path(@article), class: "btn btn-xs btn-danger", 
+    <% if logged_in? && (current_user == @article.user || current_user.admin?) %>
+      <%= link_to "Delete the article", article_path(@article), class: "btn btn-xs btn-danger", 
                   method: :delete, data: {confirm: "Are you sure?"} %>
       <%= link_to "Edit the article", edit_article_path(@article), class: "btn btn-xs btn-success" %>    
     <% end %>
