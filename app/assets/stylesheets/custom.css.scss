@@ -22,6 +22,10 @@ $navbar-default-bg: #192B0B;
   text-align: center;
 }
 
+h1.center, h2.center {
+  padding-top: 50px;
+}
+
 .jumbotron {
   background-image: asset_url('banner.png');
   background-position: center;
