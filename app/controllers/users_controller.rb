@@ -1,8 +1,9 @@
 class UsersController < ApplicationController
   
-  before_action :set_user, only: [:edit, :show, :update]
-  before_action :require_user, only: [:edit, :update]
-  before_action :require_same_user, only: [:edit, :update]
+  before_action :set_user, only: [:edit, :show, :update, :destroy]
+  before_action :require_user, only: [:edit, :update, :destroy]
+  before_action :require_same_user, only: [:edit, :update, :destroy]
+  before_action :require_admin, only: [:destroy]
   
   def index
     @users = User.paginate(page: params[:page], per_page: 5)
@@ -28,7 +29,6 @@ class UsersController < ApplicationController
   end
   
   def update
-    
     if @user.update(user_params)
       flash[:success] = "Your account was updated successfully"
       redirect_to articles_path
@@ -41,6 +41,15 @@ class UsersController < ApplicationController
     @user_articles = @user.articles.paginate(page: params[:page], per_page: 5)
   end
   
+  def destroy
+    if current_user == @user 
+      session[:user_id] = nil
+    end
+    @user.destroy
+    flash[:danger] = "User #{@user.username} and all articles are deleted"
+    redirect_to root_path
+  end
+  
   private
     def user_params
       params.require(:user).permit(:username, :email, :password)
@@ -51,8 +60,13 @@ class UsersController < ApplicationController
     def require_same_user
       if @user != current_user && !current_user.admin?
         flash[:danger] = "You only have permission to update or edit your account"
-        redirect_to root_path
+        redirect_to users_path
       end
     end
-  
+    def require_admin
+      if logged_in? && !current_user.admin?
+        flash[:danger] = "You must have to be admin and not be the current_user to perform that action"
+        redirect_to users_path
+      end
+    end
 end

@@ -9,6 +9,13 @@
               <div class="article-title">
                 <li><%= link_to user.username, user_path(user) %></li>
               </div>
+              <% if logged_in? && current_user.admin? %>
+                <div class="article-title">
+                  <li><%= link_to "Delete user", user_path(user),
+                        method: :delete, data: {confirm: "Are you sure, delete user #{user.username} ?"}, 
+                        class: "btn btn-danger btn-xs" %></li>
+                </div>
+              <% end %>
               <div class="article-meta-details">
                 <li><small>Created <%= pluralize(user.articles.count, "article") %></small></li>
               </div>
